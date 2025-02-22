@@ -6,24 +6,24 @@ from pymongo import MongoClient
 # Load environmental variables
 load_dotenv()
 
-# Logging level and format
+# Nivel y formato de logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Test the connection
+# Probar la conexión
 def get_database():
     try: 
-        # Get MongoDB URI from environment variables
+        # Obtener la URI de MongoDB de las variables de entorno
         MONGO_URI = os.getenv("MONGODB_URI")
-        # Create a MongoDB client 
+        # Crear un cliente de MongoDB
         client = MongoClient(MONGO_URI)
-        # The ismaster command is cheap and does not require auth
+        # El comando ismaster es barato y no requiere autenticación
         client.admin.command('ismaster')
 
-        # Using logger
+        # Usando logger
         db = client['test']
-        logger.info("Connected to MongoDB")
+        logger.info("Conectado a MongoDB")
         return db
     except Exception as e:
-        logger.error(f"Error connecting to MongoDB: {e}")
+        logger.error(f"Error al conectar a MongoDB: {e}")
         raise
